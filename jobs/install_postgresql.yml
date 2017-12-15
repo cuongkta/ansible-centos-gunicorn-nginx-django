@@ -1,0 +1,45 @@
+---
+
+- name: stop old postgresql service
+  service: name=postgresql state=stopped
+  when: postgresql_drop_old_cluster
+
+- name: remove old postgresql cluster
+  #command: rm -rf /var/lib/pgsql/data
+  file: path=/var/lib/pgsql/data state=absent
+  when: postgresql_drop_old_cluster
+
+- name: install postgressql
+  yum: name={{ item }} state=latest
+  become: yes
+  with_items:
+    - postgresql-server
+    - postgresql-contrib
+    - postgresql
+
+- name: install gunicorn
+  pip: name=psycopg2
+  become: yes
+
+- name: initialize new postgresql cluster
+  become: yes
+  #become_user: postgres
+  command: postgresql-setup initdb
+  ignore_errors: yes
+
+
+- name: start and enable postgres service
+  service: name=postgresql state=started enabled=yes
+  become: yes
+  ignore_errors: yes
+
+
+- name: ensure database is created
+  postgresql_db: name={{dbname}}
+  become: yes
+  become_user: postgres
+
+- name: ensure user has access to database
+  postgresql_user: db={{dbname}} name={{dbuser}} password={{dbpassword}} priv=ALL
+  become: yes
+  become_user: postgres

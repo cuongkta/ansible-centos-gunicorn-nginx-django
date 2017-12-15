@@ -1,0 +1,6 @@
+database_name: prodbinstance
+mysql_root_password: dev0108
+mysql_username: projectf_dev 
+mysql_user_password: dev0108
+mysql_user: root
+mysql_password: dev0108

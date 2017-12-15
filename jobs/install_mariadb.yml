@@ -1,0 +1,27 @@
+---
+
+- name: add epel repo
+  copy: src=resources/database/maria.repo dest=/etc/yum.repos.d/maria.repo owner=root group=root mode=0644
+  sudo: yes
+
+- name: install mariadb
+  yum: name={{ item }} state=latest
+  become: yes
+  with_items:
+    - MariaDB-server
+    - MariaDB-devel
+    - MariaDB-client
+    - MySQL-python
+
+- name: start and enable mariadb service
+  service: name=mysql state=started enabled=yes
+  sudo: yes
+
+# - name: install python driver using pip
+#   pip: name=mysql-python
+#   sudo: yes
+
+- name: Set root user password
+  mysql_user: name=root password="{{ mysql_root_password }}" check_implicit_admin=yes state=present
+  when: mysql_root_password != ""
+  ignore_errors: yes

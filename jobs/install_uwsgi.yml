@@ -1,0 +1,37 @@
+---
+# - name: upgrade all packages
+#   yum: name=* state=latest
+  
+- name: install epel
+  yum: name={{ item }} state=latest
+  become: yes
+  with_items:
+    - epel-release
+
+- name: install  pip, gcc
+  yum: name={{ item }} state=latest
+  become: yes
+  with_items:
+    - python-devel
+    - gcc
+    - python-pip 
+
+# - name: Install the Python MySQLB module
+#   pip: name=MySQL-python
+
+- name: install uwsgi driver using pip
+  pip: name=uwsgi
+  become: yes
+
+- name: install gunicorn
+  pip: name=gunicorn
+  become: yes
+
+# - name: install wsgi plugin
+#   yum: name={{ item }} state=latest
+#   become: yes
+#   with_items:
+#     - uwsgi-plugin-common
+#     - uwsgi-plugin-python
+#     - uwsgi-plugin-gevent
+#     - uwsgi-logger-file

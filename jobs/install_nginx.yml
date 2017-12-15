@@ -1,0 +1,33 @@
+---
+
+- name: install nginx
+  yum: name=nginx
+  become: yes
+
+  # sudo systemctl start nginx
+  # sudo firewall-cmd --permanent --zone=public --add-service=http 
+  # sudo firewall-cmd --permanent --zone=public --add-service=https
+  # sudo firewall-cmd --reload
+  # sudo firewall-cmd --reload
+
+- name: allow HTTP and HTTPS traffic 
+  firewalld: service=https permanent=true state=enabled zone=public
+  become: yes
+  ignore_errors: yes
+
+- name: allow HTTP and HTTPS traffic 
+  firewalld: service=http permanent=true state=enabled zone=public
+  become: yes
+  ignore_errors: yes
+
+- name: open listen port/tcp
+  firewalld: zone=public port=80/tcp permanent=true state=enabled immediate=true
+  become: yes
+  ignore_errors: yes
+
+- name: start and enable nginx service
+  service: name=nginx state=started enabled=yes
+  become: yes
+  ignore_errors: yes
+
+# install git

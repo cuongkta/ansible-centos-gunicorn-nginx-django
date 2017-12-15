@@ -1,0 +1,11 @@
+# wget ftp://195.220.108.108/linux/dag/redhat/el6/en/x86_64/dag/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+# sudo rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+
+#remove mysql:
+ # yum remove mysql mysql-server
+ # sudo yum remove mysql55-libs
+ # sudo mv /var/lib/mysql /var/lib/mysql_old_backup
+ # sudo yum erase mysql-config-5.5.56-1.17.amzn1.x86_64
+ 
+# sudo yum clean all 
+# sudo yum clean metadata 

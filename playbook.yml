@@ -1,0 +1,44 @@
+---
+
+
+- name: install server
+  hosts: all
+  serial: 1 #concurent processing nodes
+  
+  vars:
+    # Database Vars
+    database_name: prodbinstance
+    mysql_root_password: dev0108
+    mysql_username: projectf_dev 
+    mysql_user_password: dev0108
+    mysql_user: root
+    mysql_password: dev0108
+
+    dbname: loyalty-sys
+    dbuser: postgres
+    dbpassword: postgres
+    postgresql_drop_old_cluster: true # pls change to false with pure server
+
+  tasks:
+    - include: jobs/install_uwsgi.yml 
+    - include: jobs/install_nginx.yml 
+    - include: jobs/install_common_tool.yml
+    - include: jobs/install_postgresql.yml
+    
+    
+    # - name: create mysql_db user
+    #   mysql_user: 
+    #     login_user=root 
+    #     login_password={{ mysql_root_password }} 
+    #     name={{ mysql_username }} 
+    #     password={{ mysql_user_password }} 
+    #     priv=*.*:ALL state=present
+
+    # - name: create database
+    #   mysql_db: 
+    #     name={{ database_name }} 
+    #     encoding=utf8 
+    #     state=present 
+    #     login_user={{mysql_username}} 
+    #     login_password={{mysql_user_password}}
+    #   ignore_errors: yes
