@@ -24,7 +24,7 @@
     - include: jobs/install_nginx.yml 
     - include: jobs/install_common_tool.yml
     - include: jobs/install_postgresql.yml
-    
+    - include: jobs/install_wkhtmltopdf.yml
     
     # - name: create mysql_db user
     #   mysql_user: 

@@ -4,6 +4,10 @@
   yum: name=nginx
   become: yes
 
+- name: install firewalld
+  yum: name=firewalld
+  become: yes
+
   # sudo systemctl start nginx
   # sudo firewall-cmd --permanent --zone=public --add-service=http 
   # sudo firewall-cmd --permanent --zone=public --add-service=https

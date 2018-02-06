@@ -1,2 +1,2 @@
 [server]
-192.168.10.133  ansible_connection=ssh  ansible_user=centos ansible_ssh_private_key_file=/home/cuongta/.ssh/id_rsa.pub
+192.168.10.188  ansible_connection=ssh  ansible_user=centos ansible_ssh_private_key_file=/home/cuongta/.ssh/id_rsa.pub
