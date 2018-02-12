@@ -1,0 +1,17 @@
+---
+
+- name: install celery using pip
+  pip: name=celery state=latest
+  become: yes
+
+- name: install flower using pip
+  pip: name=flower state=latest
+  become: yes
+
+- name: create run celery socker folder
+  file: path=/var/run/celery/ owner=nginx group=nginx mode=0755 state=directory
+  become: yes
+
+- name: create log celery folder
+  file: path=/var/log/celery/ owner=nginx group=nginx mode=0755 state=directory
+  become: yes
